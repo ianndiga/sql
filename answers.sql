@@ -192,3 +192,39 @@ ORDER BY month;
 SELECT primary_diagnosis,  MAX(DATEDIFF(discharge_date,admission_date)) AS max_length_of_stay
 FROM admissions
 GROUP BY primary_diagnosis;
+
+
+-- Part 1: INSERT Data
+-- 1.1). Add a new patient with the following details
+INSERT INTO patients (first_name, last_name, date_of_birth, gender, language)
+VALUES ('John', 'Doe', '1980-11-15', 'Male', 'English');
+
+-- Part 2: UPDATE Data
+-- 2.1). Write a query to change John Doe's languge from "English" to "Spanish"
+UPDATE patients
+SET language = 'Spanish'
+WHERE first_name = 'John' AND  last_name = 'Doe' AND language = 'English';
+
+-- Part 3: DELETE Data
+-- 3.1). Delete the patient with the patient_id number 10
+DELETE FROM patients
+WHERE patient_id = 10;
+
+-- Part 4: Handling NULL Values
+-- 4.1). Write a query to find that takes all the names and the emails of the providers and if any of them has a NULL email, replace it with N/A
+SELECT first_name, last_name, COALESCE(email_address, 'N/A') AS email_address
+FROM providers;
+
+-- 4.2). Write a query that takes the names and contact details of the provider whether phone number or email and if any of the two is missing, replace it with Missing details
+SELECT first_name, last_name,
+     COALESCE(phone_number, 'Missing details') AS phone_number,
+     COALESCE(email_address, 'Missing details') AS email_address
+FROM providers;
+
+-- Bonus question(Optional)
+-- Write a query to retrieve all providers whose speciality is pediatrics and they are missing either of the contact details.
+SELECT first_name, last_name, Phone_number, email_address
+    FROM providers
+    WHERE provider_speciality = 'pediatrics'
+     AND (phone_number IS NULL OR email_address IS NULL);
+
