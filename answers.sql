@@ -193,7 +193,7 @@ SELECT primary_diagnosis,  MAX(DATEDIFF(discharge_date,admission_date)) AS max_l
 FROM admissions
 GROUP BY primary_diagnosis;
 
-
+-- WEEK 4 ASSIGNMENT
 -- Part 1: INSERT Data
 -- 1.1). Add a new patient with the following details
 INSERT INTO patients (first_name, last_name, date_of_birth, gender, language)
