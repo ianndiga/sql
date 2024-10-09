@@ -228,3 +228,32 @@ SELECT first_name, last_name, Phone_number, email_address
     WHERE provider_speciality = 'pediatrics'
      AND (phone_number IS NULL OR email_address IS NULL);
 
+-- WEEK 6
+-- Question 1 Simple Join
+SELECT provider_name, provider_specialty
+FROM providers;
+
+-- Question 2 Inner Join
+SELECT p.patient_id, p.first_name, p.last_name, pr.provider_specialty
+FROM patients p
+INNER JOIN visits v ON p.patient_id = v.patient_id
+INNER JOIN providers pr ON v.provider_id = pr.provider_id;
+
+-- Question 3 Left Join
+SELECT p.patient_id, p.first_name, p.last_name, v.date_of_visit
+FROM patients p
+LEFT JOIN visits v ON p.patient_id = v.patient_id;
+
+-- Question 4 Join with Aggregation
+SELECT p.provider_name, COUNT(v.visit_id) AS visit_count
+FROM providers p
+INNER JOIN visits v ON p.provider_id = v.provider_id
+GROUP BY p.provider_name;
+
+-- Question 5 Complex Join With Conditions
+SELECT p.patient_id, p.first_name, p.last_name, a.admission_date, a.discharge_date
+FROM patients p
+INNER JOIN visits v ON p.patient_id = v.patient_id
+INNER JOIN admissions a ON v.visit_id = a.visit_id
+WHERE v.admission_required = TRUE;
+
